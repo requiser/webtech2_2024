@@ -2,10 +2,6 @@
     <div class="col-md-6">
         <form [formGroup]="userForm">
             <div class="mb-3">
-                <label for="id" class="form-label">Ügyfélkód</label>
-                <input type="text" class="form-control" id="id" formControlName="id" readonly>
-            </div>
-            <div class="mb-3">
                 <label for="name" class="form-label">Név</label>
                 <input type="text" class="form-control" id="name" formControlName="name">
             </div>
@@ -18,8 +14,8 @@
                 <input type="text" class="form-control" id="phone" formControlName="phone">
             </div>
             <div class="mb-3">
-                <label for="idCard" class="form-label">Személyi igazolvány szám</label>
-                <input type="text" class="form-control" id="idCard" formControlName="idCard">
+                <label for="idCard" class="form-label">TAJ szám</label>
+                <input type="number" maxlength="9" class="form-control" id="idCard" formControlName="idCard">
             </div>
           <div class="mb-3">
             <label for="email" class="form-label">E-mail cím</label>
@@ -27,7 +23,7 @@
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Jelszó</label>
-            <input type="text" class="form-control" id="password" formControlName="password">
+            <input type="password" class="form-control" id="password" formControlName="password">
           </div>
 
         </form>

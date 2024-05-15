@@ -41,7 +41,6 @@ export class UserController extends Controller {
       const token = jwt.sign({ id: user.id }, 'mySecretKey', { expiresIn: '2w' });
       res.json({ accessToken: token });
 
-      res.json({ success: true });
     } catch (err) {
       this.handleError(res, err);
     }

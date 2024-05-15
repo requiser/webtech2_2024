@@ -22,6 +22,7 @@ export const appConfig: ApplicationConfig = {
       useClass: UnauthorizedInterceptor,
       multi: true
     },
+    provideAnimations(),
     provideToastr()
   ]
 };

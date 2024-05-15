@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
@@ -6,17 +6,20 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class AccessTokenInterceptor implements HttpInterceptor {
 
-  authService = inject(AuthService);
+  constructor(private authService: AuthService) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // Get the access token
     const accessToken = this.authService.getToken();
 
-    const transformedRequest = request.clone({
+    // Clone the request and add the authorization header
+    const modifiedRequest = request.clone({
       setHeaders: {
         Authorization: `Bearer ${accessToken}`
       }
     });
 
-    return next.handle(transformedRequest);
+    // Pass the modified request to the next handler
+    return next.handle(modifiedRequest);
   }
 }

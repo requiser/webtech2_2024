@@ -6,13 +6,15 @@ import {Location} from "./entity/Location";
 import {User} from "./entity/User";
 
 export const AppDataSource = new DataSource({
-    type: "mongodb",
+    type: "mysql",
     host: "localhost",
-    port: 27027,
+    port: 3306,
+    username: "root",
+    password: "1234",
     database: "veradas",
     synchronize: true,
     logging: true,
     entities: [Donation, Donor, Location, User],
     migrations: [],
-    subscribers: []
+    subscribers: [],
 })

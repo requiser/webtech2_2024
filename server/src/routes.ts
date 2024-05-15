@@ -12,27 +12,27 @@ export function getRouter() {
 
     router.get('/donor', donorController.getAll);
     router.get('/donor/:id', donorController.getOne);
-    router.post('/donor', checkUser, donorController.create);
-    router.put('/donor', checkUser, donorController.update);
-    router.delete('/donor/:id', checkUser, donorController.delete);
+    router.post('/donor', donorController.create, checkUser);
+    router.put('/donor', donorController.update, checkUser);
+    router.delete('/donor/:id', donorController.delete, checkUser);
 
     const locationController = new LocationController();
 
     router.get('/location', locationController.getAll);
     router.get('/location/:id', locationController.getOne);
-    router.post('/location', checkUser, locationController.create);
-    router.put('/location', checkUser, locationController.update);
-    router.delete('/location/:id', checkUser, locationController.delete);
+    router.post('/location', locationController.create, checkUser);
+    router.put('/location', locationController.update, checkUser);
+    router.delete('/location/:id', locationController.delete, checkUser);
 
     const donationController = new DonationController();
 
     router.get('/donation', donationController.getAll);
-    router.post('/donation', checkUser, donationController.create);
+    router.post('/donation', donationController.create, checkUser);
     router.get('/donation/:id', donationController.getOne);
-    router.put('/donation', checkUser, donationController.update);
+    router.put('/donation', donationController.update, checkUser);
     router.get('/donation/of/donor/:donorId', donationController.getDonationsOfDonor);
     router.get('/donation/of/location/:locationId', donationController.getDonationsOfLocation);
-    router.delete('/donation/:id', checkUser, donationController.delete);
+    router.delete('/donation/:id', donationController.delete, checkUser);
 
     const userController = new UserController();
 

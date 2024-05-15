@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-6">
+        <form [formGroup]="donorForm">
+            <div class="mb-3">
+                <label for="id" class="form-label">Véradó kód</label>
+                <input type="text" class="form-control" id="id" formControlName="id" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Név</label>
+                <input type="text" class="form-control" id="name" formControlName="name">
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Lakcím</label>
+                <input type="text" class="form-control" id="address" formControlName="address">
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Telefonszám</label>
+                <input type="text" class="form-control" id="phone" formControlName="phone">
+            </div>
+            <div class="mb-3">
+                <label for="idCard" class="form-label">TAJ szám</label>
+                <input type="number" maxlength="9" class="form-control" id="idCard" formControlName="idCard">
+            </div>
+        </form>
+        <div class="text-end">
+            <button class="btn btn-outline-primary" (click)="saveDonor()">Mentés</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="row col-md-6">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Helyszín</th>
+                <th>Donor</th>
+                <th>Dátum</th>
+                <th>Sikeres</th>
+                <th>Indok</th>
+                <th>Doktor</th>
+                <th>Irányított</th>
+                <th>Fogadó (Taj)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(trans of donations; track $index) {
+            <tr>
+                <td>{{ trans.id }}</td>
+                <td>{{ trans.location?.name }} ({{ trans.location?.id }})</td>
+                <td>{{ trans.donor?.name }} ({{ trans.donor?.id }})</td>
+                <td>{{ trans.donationDate | date }}</td>
+                <td>{{ trans.can_donate }}</td>
+                <td>{{ trans.reason }}</td>
+                <td>{{ trans.doctor }}</td>
+                <td>{{ trans.directed }}</td>
+                <td>{{ trans.recipient_name }} ({{ trans.recipient_idCard }})</td>
+                @if(authService.isLoggedIn()) {
+                <td>
+                    <button class="btn btn-outline-primary me-2" (click)="editDonation(trans.id)">Módosítás</button>
+                    <button class="btn btn-outline-danger" (click)="deleteDonation(trans.id)">Törlés</button>
+                  </td>
+                }
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

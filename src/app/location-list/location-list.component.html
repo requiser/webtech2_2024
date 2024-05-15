@@ -1,0 +1,30 @@
+<h2>Véradópontok</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Véradópont kód</th>
+            <th>Véradópont neve</th>
+            <th>Véradás helyszíne</th>
+            <th>Fogadóképes</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (location of locations; track $index) {
+        <tr>
+            <td>{{ location.id }}</td>
+            <td>{{ location.name }}</td>
+            <td>{{ location.address }}</td>
+            <td>{{ location.active }}</td>
+            @if(authService.isLoggedIn()) {
+            <td>
+                <button class="btn btn-outline-primary me-2" (click)="listDonationsForLocation(location.id)">Foglalások</button>
+                <button class="btn btn-outline-primary me-2" (click)="editLocation(location.id)">Módosítás</button>
+                <button class="btn btn-outline-danger" (click)="deleteLocation(location.id)">Törlés</button>
+            </td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>

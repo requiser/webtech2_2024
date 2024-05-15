@@ -1,0 +1,31 @@
+<h2>Véradók</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Név</th>
+            <th>Lakcím</th>
+            <th>Telefonszám</th>
+            <th>TAJ szám</th>
+            <th>Műveletek</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (donor of donors; track $index) {
+        <tr>
+            <td>{{ donor.id }}</td>
+            <td>{{ donor.name }}</td>
+            <td>{{ donor.address }}</td>
+            <td>{{ donor.phone }}</td>
+            <td>{{ donor.idCard }}</td>
+            <td>
+                <button class="btn btn-outline-primary me-2" (click)="listDonationsForDonor(donor.id)">Foglalások</button>
+                <button class="btn btn-outline-primary me-2" (click)="editDonor(donor.id)">Módosítás</button>
+                <button class="btn btn-outline-danger" (click)="deleteDonor(donor.id)">Törlés</button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

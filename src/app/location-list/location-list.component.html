@@ -7,6 +7,9 @@
             <th>Véradópont neve</th>
             <th>Véradás helyszíne</th>
             <th>Fogadóképes</th>
+            @if(authService.isLoggedIn()) {
+                <th>Módosítás</th>
+            }
         </tr>
     </thead>
 

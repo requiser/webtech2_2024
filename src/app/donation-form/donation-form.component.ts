@@ -33,7 +33,7 @@ export class DonationFormComponent implements OnInit {
     id: 0,
     donor: null,
     location: null,
-    donationDate: '',
+    donationDate: new Date().toDateString(),
     can_donate: true,
     reason: '',
     doctor: '',

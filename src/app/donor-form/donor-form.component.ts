@@ -24,6 +24,10 @@ export class DonorFormComponent implements OnInit {
   donorForm = this.fb.group<DonorDTO>({
     id: 0,
     name: '',
+    gender: '',
+    nationality: '',
+    birthplace: '',
+    birthdate: new Date().toDateString(),
     address: '',
     phone: '',
     idCard: 0

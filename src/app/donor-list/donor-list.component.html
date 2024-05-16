@@ -5,10 +5,16 @@
         <tr>
             <th>ID</th>
             <th>Név</th>
+            <th>Nem</th>
+            <th>Állampolgárság</th>
+            <th>Születési Hely</th>
+            <th>Születési Dátum</th>
             <th>Lakcím</th>
             <th>Telefonszám</th>
             <th>TAJ szám</th>
-            <th>Műveletek</th>
+            @if(authService.isLoggedIn()) {
+              <th>Műveletek</th>
+            }
         </tr>
     </thead>
 
@@ -17,6 +23,10 @@
         <tr>
             <td>{{ donor.id }}</td>
             <td>{{ donor.name }}</td>
+            <td>{{ donor.gender }}</td>
+            <td>{{ donor.nationality }}</td>
+            <td>{{ donor.birthplace }}</td>
+            <td>{{ donor.birthdate }}</td>
             <td>{{ donor.address }}</td>
             <td>{{ donor.phone }}</td>
             <td>{{ donor.idCard }}</td>

@@ -12,6 +12,18 @@ export class Donor implements DonorDTO {
     name: string;
 
     @Column()
+    gender: string;
+
+    @Column()
+    nationality: string;
+
+    @Column()
+    birthplace: string;
+
+    @Column()
+    birthdate: string;
+
+    @Column()
     address: string;
 
     @Column()

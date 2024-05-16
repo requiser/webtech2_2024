@@ -1,8 +1,10 @@
-import {Column} from "typeorm";
-
 export interface DonorDTO {
     id: number;
     name: string;
+    gender: string;
+    nationality: string;
+    birthplace: string;
+    birthdate: string;
     address: string;
     phone: string;
     idCard: number;
@@ -31,6 +33,10 @@ export interface DonationDTO {
 export interface UserDTO {
   id: number;
   name: string;
+  gender: string;
+  nationality: string;
+  birthplace: string;
+  birthdate: string;
   address: string;
   phone: string;
   idCard: number;

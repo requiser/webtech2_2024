@@ -38,7 +38,7 @@ export function getRouter() {
 
     router.post('/user/login', userController.login);
     router.post('/user/register', userController.create);
-    router.get('/user/:id', donationController.getOne);
+    router.get('/user/:id', userController.getOne);
 
     return router;
 }

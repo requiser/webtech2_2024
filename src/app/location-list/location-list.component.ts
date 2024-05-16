@@ -26,19 +26,19 @@ export class LocationListComponent implements OnInit {
     });
   }
 
-  listDonationsForLocation(id: number) {
+  listDonationsForLocation(id: any) {
     this.router.navigate([ 'donation-of-location', id ]);
   }
 
-  editLocation(id: number) {
+  editLocation(id: any) {
     this.router.navigate([ 'edit-location', id ]);
   }
 
-  deleteLocation(id: number) {
+  deleteLocation(id: any) {
     this.locationService.delete(id).subscribe({
       next: () => {
         this.toastrService.success('Sikeres törlés', 'Siker')
-        const index = this.locations.findIndex((location) => location.id == id);
+        const index = this.locations.findIndex((location) => location._id == id);
         this.locations.splice(index, 1);
       },
       error: (err) => {

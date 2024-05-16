@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LocationService } from '../services/location.service';
 import {AuthService} from "../services/auth.service";
+import {__values} from "tslib";
 
 @Component({
   selector: 'app-location-form',
@@ -22,7 +23,7 @@ export class LocationFormComponent implements OnInit {
   locationService = inject(LocationService);
 
   locationForm = this.fb.group<LocationDTO>({
-    id: 0,
+    _id: '',
     name: '',
     address: '',
     active: true
@@ -33,7 +34,6 @@ export class LocationFormComponent implements OnInit {
   ngOnInit(): void {
     this.locationForm.get('locationId')?.disable();
     const id = this.route.snapshot.params['id'];
-
     if (id) {
       this.isNewLocation = false;
       this.locationService.getOne(id).subscribe({
@@ -44,10 +44,10 @@ export class LocationFormComponent implements OnInit {
   }
 
   saveLocation() {
-    const location = this.locationForm.value;
-
     if (this.isNewLocation) {
-      this.locationService.create(location as LocationDTO).subscribe({
+      this.locationForm.removeControl("_id");
+      const location = this.locationForm.value as LocationDTO;
+      this.locationService.create(location).subscribe({
         next: () => {
           this.toastrService.success('Sikeres mentés', 'Siker');
           this.router.navigateByUrl('/location-list');
@@ -58,7 +58,8 @@ export class LocationFormComponent implements OnInit {
         }
       });
     } else {
-      this.locationService.update(location as LocationDTO).subscribe({
+      const location = this.locationForm.value as LocationDTO;
+      this.locationService.update(location).subscribe({
         next: () => {
           this.toastrService.success('Sikeres mentés', 'Siker');
           this.router.navigateByUrl('/location-list');

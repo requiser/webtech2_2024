@@ -1,37 +1,30 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
-import { Donation } from "./Donation";
-import { DonorDTO } from "../../../models";
+import mongoose, { Schema, Document } from 'mongoose';
+import { DonorDTO } from '../../../models'
+import {Donation} from "./Donation";
+import {OneToMany} from "typeorm";
 
-@Entity()
-export class Donor implements DonorDTO {
-
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column()
+export class Donor extends Document implements DonorDTO {
     name: string;
-
-    @Column()
     gender: string;
-
-    @Column()
     nationality: string;
-
-    @Column()
     birthplace: string;
-
-    @Column()
     birthdate: string;
-
-    @Column()
     address: string;
-
-    @Column()
     phone: string;
-
-    @Column()
     idCard: number;
-
     @OneToMany(type => Donation, donation => donation.donor)
-    donation: Donation[];
+    donation?: Donation[];
 }
+export const DonorSchema: Schema = new Schema({
+    name: { type: String, required: true },
+    gender: { type: String, required: true },
+    nationality: { type: String, required: true },
+    birthplace: { type: String, required: true },
+    birthdate: { type: String, required: true },
+    address: { type: String, required: true },
+    phone: { type: String, required: true },
+    idCard: { type: Number, required: true },
+    donation: {}
+}, {versionKey: false});
+
+export const DonorModel = mongoose.model<Donor>('Donor', DonorSchema);

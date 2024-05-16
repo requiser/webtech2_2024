@@ -20,7 +20,7 @@ export class RegistrationComponent implements OnInit {
   activedRoute = inject(ActivatedRoute);
 
   userForm = this.formBuilder.group<UserDTO>({
-    id: 0,
+    _id: '',
     name: '',
     gender: '',
     nationality: '',

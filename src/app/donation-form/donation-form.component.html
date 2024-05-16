@@ -1,11 +1,3 @@
-<script>
-  const today = new Date();
-  const yyyy = today.getFullYear();
-  const mm = String(today.getMonth() + 1).padStart(2, '0');
-  const dd = String(today.getDate()).padStart(2, '0');
-  const formattedDate = yyyy + '-' + mm + '-' + dd;
-  document.getElementById("donationDate").setAttribute("placeholder", formattedDate);
-</script>
 <div class="row">
     <div class="col-md-6">
         <form [formGroup]="donationForm">
@@ -14,7 +6,7 @@
                 <select id="location" class="form-select" formControlName="location">
                     @for(location of locations; track $index) {
                         <option *ngIf="location.active"
-                                [ngValue]="{ id: location.id }">{{ location.name }} ({{ location.id }})
+                                [ngValue]="{ _id: location._id }">{{ location.name }}
                         </option>
                     }
                 </select>
@@ -23,7 +15,7 @@
                 <label for="donor" class="form-label">Donor</label>
                 <select id="donor" class="form-select" formControlName="donor">
                     @for(donor of donors; track $index) {
-                        <option [ngValue]="{ id: donor.id }">{{ donor.name }} ({{ donor.id }})</option>
+                        <option [ngValue]="{ _id: donor._id }">{{ donor.name }}</option>
                     }
                 </select>
             </div>

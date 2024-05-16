@@ -1,49 +1,43 @@
 import { Controller } from "./base.controller";
-import { AppDataSource } from "../data-source";
-import { User } from "../entity/User";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { UserModel } from '../entity/User'; // Import your Mongoose model for User
 
 export class UserController extends Controller {
-  repository = AppDataSource.getRepository(User);
-  create = async (req, res) => {
-    try {
-      const entity = this.repository.create(req.body as User);
-      delete entity.id;
+    model = UserModel; // Use your Mongoose model instead of repository
 
-      const insertedEntity = await this.repository.save(entity);
+    create = async (req, res) => {
+        try {
+            const entity = await this.model.create(req.body);
 
-      entity.password = await bcrypt.hash(entity.password, 12);
+            entity.password = await bcrypt.hash(entity.password, 12);
 
-      await this.repository.save(insertedEntity);
+            const insertedEntity = await entity.save();
 
-      res.json(insertedEntity);
-    } catch (err) {
-      this.handleError(res, err);
-    }
-  };
-  login = async (req, res) => {
-    try {
-      const user = await this.repository.findOne({
-        where: { email: req.body.email },
-        select: [ 'id', 'password' ]
-      });
+            res.json(insertedEntity);
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
 
-      if (!user) {
-        return this.handleError(res, null, 401, 'Incorrect email or password.');
-      }
+    login = async (req, res) => {
+        try {
+            const user = await this.model.findOne({ email: req.body.email }).select('+password');
 
-      const passwordMatches = await bcrypt.compare(req.body.password, user.password);
-      if (!passwordMatches) {
-        return this.handleError(res, null, 401, 'Incorrect email or password.');
-      }
+            if (!user) {
+                return this.handleError(res, null, 401, 'Incorrect email or password.');
+            }
 
-      const token = jwt.sign({ id: user.id }, 'mySecretKey', { expiresIn: '2w' });
-      res.json({ accessToken: token });
+            const passwordMatches = await bcrypt.compare(req.body.password, user.password);
+            if (!passwordMatches) {
+                return this.handleError(res, null, 401, 'Incorrect email or password.');
+            }
 
-    } catch (err) {
-      this.handleError(res, err);
-    }
-  };
+            const token = jwt.sign({ id: user.id }, 'mySecretKey', { expiresIn: '2w' });
+            res.json({ accessToken: token });
 
+        } catch (err) {
+            this.handleError(res, err);
+        }
+    };
 }

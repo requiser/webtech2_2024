@@ -3,13 +3,13 @@
 A program egy véradásokkal kapcsolatos adminisztrációt segítő nyilvántartó rendszer. <br />
 
 ## Véradó pontok:
-Adatok: id, intézmény neve, cím, fogadóképesség.<br />
+Adatok: _id, intézmény neve, cím, fogadóképesség.<br />
 Ugyan ezek adatok kilistázása, módosítása és törlése. <br />
 Véradópontokhoz tartozó foglalások listázása, módosítása és törtlése. <br />
 
 ## Véradók: <br />
 
-Adatok: id, név, nem, állampolgárság, születési hely, születési idő, lakcím, telefonszám, TAJ szám. <br />
+Adatok: _id, név, nem, állampolgárság, születési hely, születési idő, lakcím, telefonszám, TAJ szám. <br />
 Ugyan ezek adatok kilistázása, módosítása és törlése. <br />
 Véradókhoz tartozó foglalások listázása, módosítása és törtlése. <br />
 
@@ -30,5 +30,5 @@ Amennyiben a TAJ szám formátuma nem megfelelő, hibaüzenet és az adatok nem 
 ## Authentikáció: <br />
 
 Ha nincs bejelentkezve a felhasználó, akkor csak a véradókat és a véradó pontokat tudja listáci, módosítani és törötlni nem tudja őket. <br />
-Regisztráció: id, név, nem, állampolgárság, születési hely, születési idő, lakcím, telefonszám, TAJ szám, e-mail, jelszó <br />
+Regisztráció: _id, név, nem, állampolgárság, születési hely, születési idő, lakcím, telefonszám, TAJ szám, e-mail, jelszó <br />
 Ha a felhasználó bejelentkezett akkor minden funkció elérhető, a regisztráció és bejelentkezés fül átvált kijelentkezésre. <br />

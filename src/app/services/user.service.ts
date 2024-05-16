@@ -9,7 +9,7 @@ export class UserService {
 
   http = inject(HttpClient);
 
-  getOne(id: number) {
+  getOne(id: any) {
     return this.http.get<UserDTO>('/api/user/' + id);
   }
 

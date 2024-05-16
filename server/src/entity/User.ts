@@ -1,39 +1,30 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
-import {UserDTO} from "../../../models";
+import mongoose, { Schema, Document } from 'mongoose';
+import { UserDTO } from '../../../models'
 
-@Entity()
-export class User implements UserDTO {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
-  name: string;
-
-  @Column()
-  gender: string;
-
-  @Column()
-  nationality: string;
-
-  @Column()
-  birthplace: string;
-
-  @Column()
-  birthdate: string;
-
-  @Column()
-  address: string;
-
-  @Column()
-  phone: string;
-
-  @Column()
-  idCard: number;
-
-  @Column({ unique: true })
-  email: string;
-
-  @Column({ select: false })
-  password: string;
-
+export class User extends Document implements UserDTO {
+    name: string;
+    gender: string;
+    nationality: string;
+    birthplace: string;
+    birthdate: string;
+    address: string;
+    phone: string;
+    idCard: number;
+    email: string;
+    password: string;
 }
+
+export const UserSchema: Schema = new Schema({
+    name: { type: String, required: true },
+    gender: { type: String, required: true },
+    nationality: { type: String, required: true },
+    birthplace: { type: String, required: true },
+    birthdate: { type: String, required: true },
+    address: { type: String, required: true },
+    phone: { type: String, required: true },
+    idCard: { type: Number, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true, select: false }
+}, {versionKey: false});
+
+export const UserModel = mongoose.model<User>('User', UserSchema);

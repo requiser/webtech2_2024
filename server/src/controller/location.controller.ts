@@ -1,19 +1,14 @@
 import { Controller } from "./base.controller";
-import { AppDataSource } from "../data-source";
-import { Location } from "../entity/Location";
+import { LocationModel } from '../entity/Location'; // Import your Mongoose model for Location
 
 export class LocationController extends Controller {
-    repository = AppDataSource.getRepository(Location);
+    model = LocationModel; // Use your Mongoose model instead of repository
 
     create = async (req, res) => {
         try {
-            const entity = this.repository.create(req.body as Location);
-            //delete entity.id;
+            const entity = await this.model.create(req.body);
 
-            const insertedEntity = await this.repository.save(entity);
-            //insertedEntity.locationId = insertedEntity.id.toString().padStart(6, '0');
-
-            await this.repository.save(insertedEntity);
+            const insertedEntity = await entity.save();
 
             res.json(insertedEntity);
         } catch (err) {

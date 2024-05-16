@@ -19,7 +19,8 @@
             </div>
             <div class="mb-3">
                 <label for="birthdate" class="form-label">Születési Dátum</label>
-                <input type="text" class="form-control" id="birthdate" formControlName="birthdate">
+                <input type="date" class="form-select" placeholder="YYYY-MM-DD"
+                       required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" id="birthdate" formControlName="birthdate">
             </div>
             <div class="mb-3">
                 <label for="address" class="form-label">Lakcím</label>

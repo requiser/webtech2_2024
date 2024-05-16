@@ -17,7 +17,7 @@ export class DonationService {
     return this.http.get<DonationDTO[]>('/api/donation/of/donor/' + donorId);
   }
 
-  getOne(id: number) {
+  getOne(id: any) {
     return this.http.get<DonationDTO>('/api/donation/' + id);
   }
 
@@ -29,7 +29,7 @@ export class DonationService {
     return this.http.put<DonationDTO>('/api/donation', donation);
   }
 
-  delete(id: number) {
+  delete(id: any) {
     return this.http.delete('/api/donation/' + id);
   }
   getAll() {

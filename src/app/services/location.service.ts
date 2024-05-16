@@ -13,7 +13,7 @@ export class LocationService {
     return this.http.get<LocationDTO[]>('/api/location');
   }
 
-  getOne(id: number) {
+  getOne(id: any) {
     return this.http.get<LocationDTO>('/api/location/' + id);
   }
 
@@ -25,7 +25,7 @@ export class LocationService {
     return this.http.put<LocationDTO>('/api/location', location);
   }
 
-  delete(id: number) {
+  delete(id: any) {
     return this.http.delete('/api/location/' + id);
   }
 }

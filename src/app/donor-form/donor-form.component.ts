@@ -1,10 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { DonorDTO } from '../../../models';
+import {DonorDTO, LocationDTO} from '../../../models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DonorService } from '../services/donor.service';
 import {AuthService} from "../services/auth.service";
+import {toInteger} from "@ng-bootstrap/ng-bootstrap/util/util";
 
 @Component({
   selector: 'app-donor-form',
@@ -22,7 +23,7 @@ export class DonorFormComponent implements OnInit {
   donorService = inject(DonorService);
 
   donorForm = this.fb.group<DonorDTO>({
-    id: 0,
+    _id: '',
     name: '',
     gender: '',
     nationality: '',
@@ -48,10 +49,13 @@ export class DonorFormComponent implements OnInit {
   }
 
   saveDonor() {
-    const donor = this.donorForm.value;
-    if(this.isValidTAJ((donor as DonorDTO).idCard)){
+    const donor = this.donorForm.value as DonorDTO;
+    if(this.isValidTAJ(donor.idCard)){
       if (this.isNewDonor) {
-        this.donorService.create(donor as DonorDTO).subscribe({
+        this.donorForm.removeControl("_id");
+        const donor = this.donorForm.value as DonorDTO;
+
+        this.donorService.create(donor).subscribe({
           next: () => {
             this.toastrService.success('Sikeres mentés', 'Siker');
             this.router.navigateByUrl('/donor-list');
@@ -62,7 +66,7 @@ export class DonorFormComponent implements OnInit {
           }
         });
       } else {
-        this.donorService.update(donor as DonorDTO).subscribe({
+        this.donorService.update(donor).subscribe({
           next: () => {
             this.toastrService.success('Sikeres mentés', 'Siker');
             this.router.navigateByUrl('/donor-list');

@@ -26,7 +26,6 @@ export class DonationListComponent implements OnInit {
   ngOnInit(): void {
     const donorId = this.route.snapshot.params['donorId'];
     const locationId = this.route.snapshot.params['locationId'];
-
     if (donorId!==undefined){
       this.donationService.getDonationsOfDonor(donorId).subscribe({
         next: (trans) => this.donations = trans,
@@ -53,15 +52,15 @@ export class DonationListComponent implements OnInit {
     }
   }
 
-  editDonation(id: number) {
+  editDonation(id: any) {
     this.router.navigate([ 'edit-donation', id ]);
   }
 
-  deleteDonation(id: number) {
+  deleteDonation(id: any) {
     this.donationService.delete(id).subscribe({
       next: () => {
         this.toastrService.success('Sikeres törlés', 'Siker')
-        const index = this.donations.findIndex((donation) => donation.id == id);
+        const index = this.donations.findIndex((donation) => donation._id == id);
         this.donations.splice(index, 1);
       },
       error: (err) => {

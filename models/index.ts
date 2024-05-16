@@ -1,5 +1,5 @@
 export interface DonorDTO {
-    id: number;
+    _id?: string,
     name: string;
     gender: string;
     nationality: string;
@@ -8,17 +8,19 @@ export interface DonorDTO {
     address: string;
     phone: string;
     idCard: number;
+    donation?: any;
 }
 
 export interface LocationDTO {
-    id: number;
+    _id?: string,
     name: string;
     address: string;
     active: boolean;
+    donation?: any;
 }
 
 export interface DonationDTO {
-    id: number;
+    _id?: string
     donationDate: string;
     donor: DonorDTO|null;
     location: LocationDTO|null;
@@ -31,7 +33,7 @@ export interface DonationDTO {
 }
 
 export interface UserDTO {
-  id: number;
+  _id?: string,
   name: string;
   gender: string;
   nationality: string;

@@ -8,6 +8,7 @@ import {LocationService} from "../services/location.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NgIf} from "@angular/common";
 import {AuthService} from "../services/auth.service";
+import {toInteger} from "@ng-bootstrap/ng-bootstrap/util/util";
 
 @Component({
   selector: 'app-donation',
@@ -30,7 +31,7 @@ export class DonationFormComponent implements OnInit {
   isNewDonation = true;
 
   donationForm = this.fb.group<DonationDTO>({
-    id: 0,
+    _id: '',
     donor: null,
     location: null,
     donationDate: new Date().toDateString(),
@@ -66,10 +67,13 @@ export class DonationFormComponent implements OnInit {
   }
 
   saveDonation() {
-    const donation = this.donationForm.value;
-    if(this.isValidTAJ((donation as DonationDTO).recipient_idCard) || !(donation as DonationDTO).directed){
+    const donation = this.donationForm.value as DonationDTO;
+    if(this.isValidTAJ(donation.recipient_idCard) || !(donation.directed)){
       if (this.isNewDonation) {
-        this.donationService.create(donation as DonationDTO).subscribe({
+        this.donationForm.removeControl("_id");
+        const donation = this.donationForm.value as DonationDTO;
+
+        this.donationService.create(donation).subscribe({
           next: () => {
             this.toastrService.success('Foglalás végrehajtva!', 'Siker');
             // @ts-ignore
@@ -81,7 +85,7 @@ export class DonationFormComponent implements OnInit {
           }
         });
       } else {
-        this.donationService.update(donation as DonationDTO).subscribe({
+        this.donationService.update(donation).subscribe({
           next: () => {
             this.toastrService.success('Sikeres mentés', 'Siker');
             this.router.navigateByUrl('');

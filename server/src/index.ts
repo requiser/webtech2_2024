@@ -1,11 +1,12 @@
-import { AppDataSource } from "./data-source";
 import express from 'express';
+import mongoose from './data-source'; // Assuming your Mongoose configuration file is named mongooseConfig.ts
 import { getRouter } from "./routes";
-import {handleAuthorizationError} from "./protect-routes";
+import { handleAuthorizationError } from "./protect-routes";
 
 async function main() {
     try {
-        await AppDataSource.initialize();
+        // Connect to MongoDB
+        await mongoose;
 
         const app = express();
 

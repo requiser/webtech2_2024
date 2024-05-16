@@ -1,12 +1,12 @@
-import { Repository } from "typeorm";
+import mongoose from 'mongoose';
 
 export abstract class Controller {
-    repository: Repository<any>;
+    model: mongoose.Model<any>;
 
     getOne = async (req, res) => {
         try {
             const id = req.params.id;
-            const entity = await this.repository.findOneBy({ id });
+            const entity = await this.model.findById(id);
             res.json(entity);
         } catch (err) {
             this.handleError(res, err);
@@ -15,7 +15,7 @@ export abstract class Controller {
 
     getAll = async (req, res) => {
         try {
-            const entities = await this.repository.find();
+            const entities = await this.model.find();
             res.json(entities);
         } catch (err) {
             this.handleError(res, err);
@@ -24,11 +24,8 @@ export abstract class Controller {
 
     create = async (req, res) => {
         try {
-            const entity = this.repository.create(req.body) as any;
-            delete entity.id;
-
-            const insertedEntity = await this.repository.save(entity);
-            res.json(insertedEntity);
+            const entity = await this.model.create(req.body);
+            res.json(entity);
         } catch (err) {
             this.handleError(res, err);
         }
@@ -36,17 +33,15 @@ export abstract class Controller {
 
     update = async (req, res) => {
         try {
-            const id = req.body.id;
-
-            let entity = await this.repository.findOneBy({ id });
+            const id = req.body._id;
+            let entity = await this.model.findById(id);
             if (!entity) {
-                return this.handleError(res, null, 404, "No entity found with the given id.");
+                return this.handleError(res, null, 404, "No entity found with the given _id.");
             }
+            entity.set(req.body);
 
-            entity = this.repository.create(req.body as object);
-
-            const insertedEntity = await this.repository.save(entity);
-            res.json(insertedEntity);
+            const updatedEntity = await entity.save();
+            res.json(updatedEntity);
         } catch (err) {
             this.handleError(res, err);
         }
@@ -55,13 +50,11 @@ export abstract class Controller {
     delete = async (req, res) => {
         try {
             const id = req.params.id;
-
-            let entity = await this.repository.findOneBy({ id });
-            if (!entity) {
-                return this.handleError(res, null, 404, "No entity found with the given id.");
+            const deletedEntity = await this.model.findByIdAndDelete(id);
+            if (!deletedEntity) {
+                return this.handleError(res, null, 404, "No entity found with the given _id.");
             }
 
-            await this.repository.remove(entity);
             res.send();
         } catch (err) {
             this.handleError(res, err);

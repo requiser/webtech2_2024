@@ -26,19 +26,19 @@ export class DonorListComponent implements OnInit {
     });
   }
 
-  listDonationsForDonor(id: number) {
+  listDonationsForDonor(id: any) {
     this.router.navigate([ 'donation-of-donor', id ]);
   }
 
-  editDonor(id: number) {
+  editDonor(id: any) {
     this.router.navigate([ 'edit-donor', id ]);
   }
 
-  deleteDonor(id: number) {
+  deleteDonor(id: any) {
     this.donorService.delete(id).subscribe({
       next: () => {
         this.toastrService.success('Sikeres törlés', 'Siker')
-        const index = this.donors.findIndex((donor) => donor.id == id);
+        const index = this.donors.findIndex((donor) => donor._id == id);
         this.donors.splice(index, 1);
       },
       error: (err) => {

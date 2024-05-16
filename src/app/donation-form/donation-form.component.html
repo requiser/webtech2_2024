@@ -42,18 +42,18 @@
                 <input type="text" class="form-control" id="reason" formControlName="reason">
             </div>
             <div class="mb-3">
-                <label for="doctor" class="form-label">Doktron Neve</label>
+                <label for="doctor" class="form-label">Doktor Neve</label>
                 <input type="text" class="form-control" id="doctor" formControlName="doctor">
             </div>
             <div class="mb-3">
                 <label for="directed" class="form-label">Irányított Véradás</label>
                 <input type="checkbox" id="directed" formControlName="directed">
             </div>
-            <div class="mb-3" *ngIf="donationForm.get('directed')?.value">
+            <div class="mb-3" *ngIf="donationForm.get('directed')?.value&&donationForm.get('can_donate')?.value">
                 <label for="recipient_name" class="form-label">Fogadó Beteg Neve</label>
                 <input type="text" class="form-control" id="recipient_name" formControlName="recipient_name">
             </div>
-            <div class="mb-3" *ngIf="donationForm.get('directed')?.value">
+            <div class="mb-3" *ngIf="donationForm.get('directed')?.value&&donationForm.get('can_donate')?.value">
                 <label for="recipient_idCard" class="form-label">Fogadó Beteg TAJ száma</label>
                 <input type="text" class="form-control" pattern="\d*" maxlength="9" id="recipient_idCard" formControlName="recipient_idCard">
             </div>

@@ -10,6 +10,18 @@ export class User implements UserDTO {
   name: string;
 
   @Column()
+  gender: string;
+
+  @Column()
+  nationality: string;
+
+  @Column()
+  birthplace: string;
+
+  @Column()
+  birthdate: string;
+
+  @Column()
   address: string;
 
   @Column()

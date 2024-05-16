@@ -22,6 +22,10 @@ export class RegistrationComponent implements OnInit {
   userForm = this.formBuilder.group<UserDTO>({
     id: 0,
     name: '',
+    gender: '',
+    nationality: '',
+    birthplace: '',
+    birthdate: new Date().toDateString(),
     address: '',
     phone: '',
     idCard: 0,

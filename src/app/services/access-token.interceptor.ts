@@ -8,18 +8,15 @@ export class AccessTokenInterceptor implements HttpInterceptor {
 
   constructor(private authService: AuthService) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // Get the access token
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const accessToken = this.authService.getToken();
 
-    // Clone the request and add the authorization header
-    const modifiedRequest = request.clone({
+    const transformedRequest = request.clone({
       setHeaders: {
         Authorization: `Bearer ${accessToken}`
       }
     });
 
-    // Pass the modified request to the next handler
-    return next.handle(modifiedRequest);
+    return next.handle(transformedRequest);
   }
 }

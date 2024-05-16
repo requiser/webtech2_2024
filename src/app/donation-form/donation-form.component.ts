@@ -69,7 +69,6 @@ export class DonationFormComponent implements OnInit {
     const donation = this.donationForm.value;
     if(this.isValidTAJ((donation as DonationDTO).recipient_idCard) || !(donation as DonationDTO).directed){
       if (this.isNewDonation) {
-        console.log('create')
         this.donationService.create(donation as DonationDTO).subscribe({
           next: () => {
             this.toastrService.success('Foglalás végrehajtva!', 'Siker');
@@ -84,12 +83,10 @@ export class DonationFormComponent implements OnInit {
       } else {
         this.donationService.update(donation as DonationDTO).subscribe({
           next: () => {
-            console.log(donation)
             this.toastrService.success('Sikeres mentés', 'Siker');
             this.router.navigateByUrl('');
           },
           error: (err) => {
-            console.log(donation)
             console.error(err);
             this.toastrService.error('Hiba a mentés során.', 'Hiba');
           }
@@ -110,11 +107,9 @@ export class DonationFormComponent implements OnInit {
     for (let i = 0; i < 8; i++) {
         const digit = parseInt(idCardStr[i]);
         sum += (i % 2 === 0) ? digit * 3 : digit * 7;
-        console.log(sum);
     }
     const checksum = sum % 10;
     const lastDigit = parseInt(idCardStr[8]);
-    console.log(checksum+', '+lastDigit)
     return checksum === lastDigit;
 }
 }

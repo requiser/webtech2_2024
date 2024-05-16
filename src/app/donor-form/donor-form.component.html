@@ -2,10 +2,6 @@
     <div class="col-md-6">
         <form [formGroup]="donorForm">
             <div class="mb-3">
-                <label for="id" class="form-label">Véradó kód</label>
-                <input type="text" class="form-control" id="id" formControlName="id" readonly>
-            </div>
-            <div class="mb-3">
                 <label for="name" class="form-label">Név</label>
                 <input type="text" class="form-control" id="name" formControlName="name">
             </div>
@@ -19,7 +15,7 @@
             </div>
             <div class="mb-3">
                 <label for="idCard" class="form-label">TAJ szám</label>
-                <input type="number" maxlength="9" class="form-control" id="idCard" formControlName="idCard">
+                <input type="text" pattern="\d*" maxlength="9" class="form-control" id="idCard" formControlName="idCard">
             </div>
         </form>
         <div class="text-end">

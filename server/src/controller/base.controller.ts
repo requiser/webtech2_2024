@@ -48,7 +48,6 @@ export abstract class Controller {
             const insertedEntity = await this.repository.save(entity);
             res.json(insertedEntity);
         } catch (err) {
-            console.log(req)
             this.handleError(res, err);
         }
     };

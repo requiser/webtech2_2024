@@ -1,0 +1,10 @@
+.chart-container {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+#genderChart {
+  height: 400px !important;
+  width: 400px !important;
+}

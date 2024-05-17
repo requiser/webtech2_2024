@@ -1,11 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import {DonorDTO, LocationDTO} from '../../../models';
+import {DonorDTO} from '../../../models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DonorService } from '../services/donor.service';
 import {AuthService} from "../services/auth.service";
-import {toInteger} from "@ng-bootstrap/ng-bootstrap/util/util";
 
 @Component({
   selector: 'app-donor-form',
@@ -28,7 +27,7 @@ export class DonorFormComponent implements OnInit {
     gender: '',
     nationality: '',
     birthplace: '',
-    birthdate: new Date().toDateString(),
+    birthdate: `${new Date().toISOString().substring(0, 10)}`,
     address: '',
     phone: '',
     idCard: 0
@@ -49,12 +48,11 @@ export class DonorFormComponent implements OnInit {
   }
 
   saveDonor() {
+
     const donor = this.donorForm.value as DonorDTO;
-    if(this.isValidTAJ(donor.idCard)){
+    if (this.isValidTAJ(donor.idCard)) {
       if (this.isNewDonor) {
         this.donorForm.removeControl("_id");
-        const donor = this.donorForm.value as DonorDTO;
-
         this.donorService.create(donor).subscribe({
           next: () => {
             this.toastrService.success('Sikeres mentés', 'Siker');
@@ -62,7 +60,7 @@ export class DonorFormComponent implements OnInit {
           },
           error: (err) => {
             console.error(err);
-            this.toastrService.error('Hiba a mentés során.', 'Hiba')
+            this.toastrService.error('Hiba a mentés során.', 'Hiba');
           }
         });
       } else {
@@ -73,26 +71,26 @@ export class DonorFormComponent implements OnInit {
           },
           error: (err) => {
             console.error(err);
-            this.toastrService.error('Hiba a mentés során.', 'Hiba')
+            this.toastrService.error('Hiba a mentés során.', 'Hiba');
           }
         });
       }
-    }
-    else {
-          console.error('Hibás TAJ szám.');
-          this.toastrService.error('Hibás TAJ szám.', 'Hiba')
+    } else {
+      console.error('Hibás TAJ szám.');
+      this.toastrService.error('Hibás TAJ szám.', 'Hiba');
     }
   }
+
   isValidTAJ(idCard: number): boolean {
     const idCardStr = idCard.toString();
 
     if (idCardStr.length !== 9) {
-        return false;
+      return false;
     }
     let sum = 0;
     for (let i = 0; i < 8; i++) {
-        const digit = parseInt(idCardStr[i]);
-        sum += (i % 2 === 0) ? digit * 3 : digit * 7;
+      const digit = parseInt(idCardStr[i]);
+      sum += (i % 2 === 0) ? digit * 3 : digit * 7;
     }
     const checksum = sum % 10;
     const lastDigit = parseInt(idCardStr[8]);
